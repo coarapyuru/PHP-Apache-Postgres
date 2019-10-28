@@ -1,0 +1,26 @@
+version: '3'
+
+######### Services ###################################
+
+services:
+  php-apache:
+    build: ./docker/php-apache/
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    build: ./docker/postgres/
+    ports:
+      - 54321:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+
+######### Volumes ###################################
+
+volumes:
+  database:
+    driver: local
